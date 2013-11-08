@@ -1,7 +1,7 @@
 require 'my_bitcasa/connection_pool'
 
 module MyBitcasa
-  class Directory
+  class Ls
     include ConnectionPool
     include Enumerable
 
@@ -42,7 +42,7 @@ module MyBitcasa
         items = res.body["items"]
 
         items.each do |item|
-          yield item
+          yield Item.create(item)
         end
 
         if length<=bottom

@@ -10,7 +10,7 @@ module MyBitcasa
       end
 
       def login(user, password)
-        js_path = File.expand_path("phantomjs_login.js", File.dirname(__FILE__))
+        js_path = ::File.expand_path("phantomjs_login.js", ::File.dirname(__FILE__))
         cookie = ::Phantomjs.run(js_path, user, password)
         cookie = cookie.to_s.strip
         if cookie.length==0

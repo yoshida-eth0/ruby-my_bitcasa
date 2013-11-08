@@ -9,9 +9,9 @@ module MyBitcasa
     end
 
     def renew!
-      profile = connection.get "/profile"
+      res = connection.get "/profile"
       self.clear
-      self.merge!(profile.body)
+      self.merge!(res.body)
     end
 
     [

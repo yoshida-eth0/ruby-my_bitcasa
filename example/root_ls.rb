@@ -10,6 +10,6 @@ MyBitcasa.establish_connection(setting["user"], setting["password"])
 puts "====="
 puts "Root file list"
 puts "====="
-MyBitcasa::Directory.new("/").each do |item|
+MyBitcasa::Ls.new("/").each do |item|
   pp item
 end
