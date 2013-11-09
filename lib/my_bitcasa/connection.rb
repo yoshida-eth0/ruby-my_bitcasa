@@ -8,10 +8,10 @@ require 'active_support/core_ext'
 
 module MyBitcasa
   class Connection < Faraday::Connection
-    attr_reader :user
     attr_writer :login_engine
+    attr_accessor :cookie
 
-    def initialize(user, password)
+    def initialize(user=nil, password=nil)
       super(:url => 'https://my.bitcasa.com') do |conn|
         conn.use FaradayMiddleware::FollowRedirects
         conn.request :url_encoded

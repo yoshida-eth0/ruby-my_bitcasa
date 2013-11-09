@@ -18,7 +18,7 @@ module MyBitcasa
 
     def binary
       @binary ||= begin
-        res = self.get do |req|
+        res = connection.get do |req|
           req.url "/transcode/#{@file.id}/#{@specific_size}"
           req.params = {
             size: @file.size,

@@ -8,24 +8,8 @@ setting = YAML.load_file(File.expand_path("setting.yml", File.dirname(__FILE__))
 MyBitcasa.establish_connection(setting["user"], setting["password"])
 
 puts "====="
-puts "Root file list"
+puts "file list"
 puts "====="
-
-=begin
-def recursive_ls(path, dir, remainder)
-  MyBitcasa::Ls.new(path).each do |item|
-    human_path = dir + "/" + item["name"]
-    puts "category: #{item["category"]}"
-    puts "human path: #{human_path}"
-    puts "absolute path: #{item["path"]}"
-    puts "-----"
-
-    if item["category"]=="folders" && 0<remainder
-      recursive_ls(item["path"], human_path, remainder-1)
-    end
-  end
-end
-=end
 
 def recursive_ls(path, remainder)
   MyBitcasa::Ls.new(path).each do |item|

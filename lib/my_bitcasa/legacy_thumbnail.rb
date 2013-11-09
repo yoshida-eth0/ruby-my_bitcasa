@@ -18,7 +18,7 @@ module MyBitcasa
 
     def binary
       @binary ||= begin
-        res = self.get do |req|
+        res = connection.get do |req|
           req.url "/file/#{@file.id}/thumbnail/#{@specific_size}.png"
           req.params = {
             size: @file.size,
