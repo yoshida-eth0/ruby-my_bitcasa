@@ -1,8 +1,10 @@
 require 'my_bitcasa/connection_pool'
+require 'my_bitcasa/downloadable'
 
 module MyBitcasa
   class LegacyThumbnail
     include ConnectionPool
+    include Downloadable
 
     THUMB_SIZE = {
       small: "35x35c",
@@ -11,22 +13,21 @@ module MyBitcasa
       preview: "1024x768s",
     }.freeze
 
+    downloadable_path {
+      "/file/#{@file.id}/thumbnail/#{@specific_size}.png"
+    }
+    downloadable_params {{
+      size: @file.size,
+      mime: @file.mime,
+    }}
+    downloadable_basename {
+      name = File.basename(@file.name, "."+@file.extension)
+      "#{name}_#{@specific_size}.png"
+    }
+
     def initialize(file, size=:small)
       @file = file
       @specific_size = THUMB_SIZE[size] || size
-    end
-
-    def binary
-      @binary ||= begin
-        res = connection.get do |req|
-          req.url "/file/#{@file.id}/thumbnail/#{@specific_size}.png"
-          req.params = {
-            size: @file.size,
-            mime: @file.mime,
-          }
-        end
-        res.body
-      end
     end
   end
 end

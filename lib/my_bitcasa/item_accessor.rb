@@ -1,5 +1,5 @@
 module MyBitcasa
-  module ItemReader
+  module ItemAccessor
     def item_value_reader(key)
       class_eval %{
         def #{key}
