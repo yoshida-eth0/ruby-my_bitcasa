@@ -6,23 +6,15 @@ module MyBitcasa
   class BitcasaFile < BitcasaItem
     include ConnectionPool
 
-    [
-      :album,
-      :extension,
-      :artist,
-      :duplicates,
-      :manifest_name,
-      :mime,
-      :id,
-      :incomplete,
-      :size,
-    ].each do |key|
-      class_eval %{
-        def #{key}
-          @item["#{key}"]
-        end
-      }
-    end
+    item_reader :album
+    item_reader :extension
+    item_reader :artist
+    item_reader :duplicates
+    item_reader :manifest_name
+    item_reader :mime
+    item_reader :id
+    item_reader :incomplete?
+    item_reader :size
 
     def thumbnail(size=:small)
       Thumbnail.new(self, size)

@@ -23,11 +23,13 @@ module MyBitcasa
     end
 
     def each
+      top = @top
+
       loop do
         res = connection.get {|req|
           req.url "/directory#{@path}"
           req.params = {
-            top: @top,
+            top: top,
             bottom: @bottom,
             sort_column: @sort_column,
             sort_ascending: @sort_ascending,

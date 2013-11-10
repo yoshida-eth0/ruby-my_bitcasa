@@ -2,19 +2,11 @@ require 'my_bitcasa/bitcasa_folder'
 
 module MyBitcasa
   class BitcasaDrive < BitcasaFolder
-    [
-      :mount_point,
-      :deleted,
-      :mirrored,
-      :origin_device,
-      :origin_device_id,
-      :sync_type,
-    ].each do |key|
-      class_eval %{
-        def #{key}
-          @item["#{key}"]
-        end
-      }
-    end
+    item_reader :mount_point
+    item_reader :deleted?
+    item_reader :mirrored?
+    item_reader :origin_device
+    item_reader :origin_device_id
+    item_reader :sync_type
   end
 end
