@@ -1,7 +1,7 @@
-require 'my_bitcasa/folder'
+require 'my_bitcasa/bitcasa_folder'
 
 module MyBitcasa
-  class Drive < Folder
+  class BitcasaDrive < BitcasaFolder
     [
       :mount_point,
       :deleted,

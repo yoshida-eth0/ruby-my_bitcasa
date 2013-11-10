@@ -1,4 +1,5 @@
 require 'my_bitcasa/connection_pool'
+require 'my_bitcasa/bitcasa_item'
 
 module MyBitcasa
   class Ls
@@ -42,7 +43,7 @@ module MyBitcasa
         items = res.body["items"]
 
         items.each do |item|
-          yield Item.create(item)
+          yield BitcasaItem.create(item)
         end
 
         if length<=bottom

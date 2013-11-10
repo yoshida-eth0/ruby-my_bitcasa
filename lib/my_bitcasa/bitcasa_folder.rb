@@ -1,7 +1,7 @@
-require 'my_bitcasa/item'
+require 'my_bitcasa/bitcasa_item'
 
 module MyBitcasa
-  class Folder < Item
+  class BitcasaFolder < BitcasaItem
     def ls
       Ls.new(self.path)
     end

@@ -1,5 +1,5 @@
 module MyBitcasa
-  class Item
+  class BitcasaItem
     def initialize(item)
       @item = item
     end
@@ -35,12 +35,12 @@ module MyBitcasa
       def create(item)
         if item["category"]=="folders"
           if item["mount_point"]
-            Drive.new(item)
+            BitcasaDrive.new(item)
           else
-            Folder.new(item)
+            BitcasaFolder.new(item)
           end
         else
-          File.new(item)
+          BitcasaFile.new(item)
         end
       end
     end

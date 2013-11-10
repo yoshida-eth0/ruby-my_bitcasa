@@ -1,9 +1,9 @@
-require 'my_bitcasa/item'
+require 'my_bitcasa/bitcasa_item'
 require 'my_bitcasa/connection_pool'
 require 'cgi'
 
 module MyBitcasa
-  class File < Item
+  class BitcasaFile < BitcasaItem
     include ConnectionPool
 
     [
@@ -68,12 +68,12 @@ module MyBitcasa
     end
 
     def download(dest)
-      if ::File.directory?(dest)
+      if File.directory?(dest)
         dest += "/" + self.name
       end
 
-      dest_dir = ::File.dirname(dest)
-      unless ::File.exists?(dest_dir)
+      dest_dir = File.dirname(dest)
+      unless File.exists?(dest_dir)
         raise Errno::ENOENT, "No such directory - #{dest_dir}"
       end
 
