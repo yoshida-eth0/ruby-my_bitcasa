@@ -9,9 +9,7 @@ MyBitcasa.establish_connection(setting.symbolize_keys)
 
 drive = MyBitcasa::Ls.new("/").select{|item| item.drive?}.first
 
-drive.each do |item|
-  if item.name.match(/^my_bitcasa_example_(upload( \(\d+\))?\.rb|mkdir)$/)
-    puts "delete: #{item.name}"
-    item.delete
-  end
-end
+folder = drive.mkdir("my_bitcasa_example_mkdir")
+puts "category: #{folder.category}"
+puts "name: #{folder.name}"
+puts "path: #{folder.path}"
