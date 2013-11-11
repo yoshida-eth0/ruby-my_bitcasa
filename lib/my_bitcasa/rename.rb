@@ -1,6 +1,4 @@
 require 'my_bitcasa/connection_pool'
-require 'my_bitcasa/bitcasa_item'
-require 'my_bitcasa/api_error'
 
 module MyBitcasa
   class Rename

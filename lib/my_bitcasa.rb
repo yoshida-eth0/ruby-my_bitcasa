@@ -12,15 +12,18 @@ require 'my_bitcasa/upload'
 require 'my_bitcasa/mkdir'
 require 'my_bitcasa/rename'
 require 'my_bitcasa/delete'
+require 'my_bitcasa/share'
 require 'my_bitcasa/thumbnail'
 require 'my_bitcasa/legacy_thumbnail'
 
 # model
 require 'my_bitcasa/item_accessor'
+require 'my_bitcasa/bitcasa_base'
 require 'my_bitcasa/bitcasa_item'
 require 'my_bitcasa/bitcasa_drive'
 require 'my_bitcasa/bitcasa_folder'
 require 'my_bitcasa/bitcasa_file'
+require 'my_bitcasa/bitcasa_share'
 
 # error
 require 'my_bitcasa/error'

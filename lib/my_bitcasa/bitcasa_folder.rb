@@ -4,6 +4,7 @@ require 'my_bitcasa/upload'
 require 'my_bitcasa/mkdir'
 require 'my_bitcasa/rename'
 require 'my_bitcasa/delete'
+require 'my_bitcasa/share'
 
 module MyBitcasa
   class BitcasaFolder < BitcasaItem
@@ -37,6 +38,10 @@ module MyBitcasa
       Delete.new(self.path).delete
       @item["deleted"] = true
       true
+    end
+
+    def share
+      Share.new(self.name, self.path).share
     end
   end
 end

@@ -1,19 +1,13 @@
-require 'my_bitcasa/item_accessor'
+require 'my_bitcasa/bitcasa_base'
 
 module MyBitcasa
-  class BitcasaItem
-    extend ItemAccessor
-
+  class BitcasaItem < BitcasaBase
     item_reader :category
     item_reader :name
     item_reader :mirrored?
     item_reader :mtime
     item_reader :path
     item_reader :type
-
-    def initialize(item)
-      @item = item
-    end
 
     def drive?
       folder? && !!self.mount_point

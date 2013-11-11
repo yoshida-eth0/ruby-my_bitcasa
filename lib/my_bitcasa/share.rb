@@ -1,18 +1,20 @@
 require 'my_bitcasa/connection_pool'
-require 'json'
+require 'my_bitcasa/bitcasa_share'
 
 module MyBitcasa
-  class Delete
+  class Share
     include ConnectionPool
 
-    def initialize(*paths)
+    def initialize(name, *paths)
+      @name = name
       @paths = paths.flatten
     end
 
-    def delete
+    def share
       res = connection.post do |req|
-        req.url "/delete"
+        req.url "/share"
         req.body = {
+          name: @name,
           selection: JSON.generate({
             paths: @paths,
             albums: {},
@@ -21,6 +23,8 @@ module MyBitcasa
           }),
         }
       end
+
+      BitcasaShare.new(res.body)
     end
   end
 end
