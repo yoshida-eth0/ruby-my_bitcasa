@@ -21,7 +21,7 @@ recursive("/", 1) do |item|
   if item.category=="photos"
     puts "name: #{item.name}"
     puts "path: #{item.path}"
-    puts "saved: " + item.thumbnail.download("./")
+    puts "saved: " + item.thumbnail.save("./")
     puts "-----"
   end
 end

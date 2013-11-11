@@ -6,6 +6,7 @@ require 'my_bitcasa/login_engine'
 # api
 require 'my_bitcasa/profile'
 require 'my_bitcasa/ls'
+require 'my_bitcasa/download'
 require 'my_bitcasa/delete'
 
 # model
