@@ -3,7 +3,7 @@ require 'json'
 
 module MyBitcasa
   class ZipDownload < Download
-    def initialize(*paths)
+    def initialize(paths)
       @path = "/download/File from My Drive.zip"
       @params = {}
       @body = {

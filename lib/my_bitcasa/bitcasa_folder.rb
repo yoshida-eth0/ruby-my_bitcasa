@@ -14,6 +14,6 @@ module MyBitcasa
     def upload(src_path, content_type: nil, filename: nil)
       Upload.new(self.path).upload(src_path, content_type: content_type, filename: filename)
     end
-    alias_method :upload, :<<
+    alias_method :<<, :upload
   end
 end
