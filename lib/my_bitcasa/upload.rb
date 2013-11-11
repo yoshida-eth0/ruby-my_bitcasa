@@ -1,7 +1,14 @@
+require 'my_bitcasa/connection_pool'
 require 'mime-types'
 
 module MyBitcasa
-  module Uploadable
+  class Upload
+    include ConnectionPool
+
+    def initialize(dest_path)
+      @dest_path = dest_path
+    end
+
     def upload(src_path, content_type: nil, filename: nil)
       # check src_path
       unless File.file?(src_path)
@@ -22,7 +29,7 @@ module MyBitcasa
       res = multipart_connection.post do |req|
         req.url "/files"
         req.params = {
-          path: self.path,
+          path: @dest_path,
         }
         req.body = {
           file: Faraday::UploadIO.new(src_path, content_type, filename)

@@ -1,4 +1,6 @@
 require 'my_bitcasa/connection_pool'
+require 'net/http'
+require 'net/https'
 require 'cgi'
 require 'fileutils'
 require 'tempfile'
@@ -11,6 +13,7 @@ module MyBitcasa
       @path = path
       @params = params
       @basename = basename
+      @req_class = Net::HTTP::Get
     end
 
     def stream(&block)
@@ -23,11 +26,21 @@ module MyBitcasa
       headers = connection.headers.dup
       headers["Cookie"] = connection.cookie
 
-      # request
+      # body
+      body = nil
+      if @body
+        body = @body.map{|k,v|
+          "#{k}=#{CGI.escape(v.to_s)}"
+        }.join("&")
+      end
+
+      # http
       http = Net::HTTP.new(connection.url_prefix.host, connection.url_prefix.port)
       http.use_ssl = connection.url_prefix.scheme=="https"
 
-      http.request_get(@path+"?"+query, headers) do |res|
+      # request
+      req = @req_class.new(@path+"?"+query, headers)
+      http.request(req, body) do |res|
         case res
         when Net::HTTPSuccess
           # 200 OK
