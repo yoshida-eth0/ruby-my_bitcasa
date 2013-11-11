@@ -11,11 +11,15 @@ module MyBitcasa
       @connection || self.class.connection
     end
 
+    def multipart_connection
+      connection.multipart
+    end
+
     module ClassMethods
       mattr_accessor :connection
 
-      def establish_connection(user, password)
-        @@connection = Connection.new(user, password)
+      def establish_connection(*args)
+        @@connection = Connection.new(*args)
       end
     end
   end

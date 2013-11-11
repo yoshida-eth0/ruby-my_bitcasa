@@ -3,6 +3,7 @@ require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/downloadable'
 require 'my_bitcasa/thumbnail'
 require 'my_bitcasa/legacy_thumbnail'
+require 'my_bitcasa/delete'
 
 module MyBitcasa
   class BitcasaFile < BitcasaItem
@@ -36,6 +37,12 @@ module MyBitcasa
 
     def legacy_thumbnail(size=:small)
       LegacyThumbnail.new(self, size)
+    end
+
+    def delete
+      Delete.new(self.path).delete
+      @item["deleted"] = true
+      true
     end
   end
 end

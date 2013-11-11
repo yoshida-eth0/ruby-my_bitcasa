@@ -1,9 +1,10 @@
 require 'my_bitcasa/connection_finalizer'
-require 'my_bitcasa/response_error'
+require 'my_bitcasa/response_format_error'
 require 'my_bitcasa/connection_error'
 require 'my_bitcasa/authorization_error'
 require 'faraday'
 require 'faraday_middleware'
+require 'my_bitcasa/response_middleware'
 require 'active_support/core_ext'
 
 module MyBitcasa
@@ -11,12 +12,16 @@ module MyBitcasa
     attr_writer :login_engine
     attr_accessor :cookie
 
-    def initialize(user=nil, password=nil)
+    def initialize(user: nil, password: nil, multipart: false)
       super(:url => 'https://my.bitcasa.com') do |conn|
         conn.use FaradayMiddleware::FollowRedirects
-        conn.request :url_encoded
+        if multipart
+          conn.request :multipart
+        else
+          conn.request :url_encoded
+        end
         #conn.response :logger
-        conn.response :json, :content_type => /\bjson/
+        conn.response :my_bitcasa
         conn.adapter Faraday.default_adapter
       end 
       @headers[:user_agent] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:10.0.2) Gecko/20100101 Firefox/10.0.2"
@@ -67,6 +72,12 @@ module MyBitcasa
         end
         alias_method_chain :#{method}, :loggedin
       }
+    end
+
+    def multipart
+      @multipart ||= self.class.new(multipart: true)
+      @multipart.cookie = self.cookie
+      @multipart
     end
 
     private

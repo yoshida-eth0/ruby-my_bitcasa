@@ -1,3 +1,5 @@
+require 'my_bitcasa/response_format_error'
+
 module MyBitcasa
   module LoginEngine
     # MyBitcasa::LoginEngine::Pure is not work.
@@ -15,10 +17,10 @@ module MyBitcasa
         res = @conn.get_without_loggedin("/login")
 
         csrf_tag = res.body.match(/<input [^<>]*name="csrf_token"[^<>]*>/){|m| m[0]}
-        raise ResponseError, "csrf_token tag is not found" unless csrf_tag
+        raise ResponseFormatError, "csrf_token tag is not found" unless csrf_tag
 
         csrf_token = csrf_tag.match(/value="([^"]+)"/){|m| m[1]}
-        raise ResponseError, "csrf_token is not found" unless csrf_token
+        raise ResponseFormatError, "csrf_token is not found" unless csrf_token
 
         # login post
         res = @conn.post_without_loggedin("/login", {

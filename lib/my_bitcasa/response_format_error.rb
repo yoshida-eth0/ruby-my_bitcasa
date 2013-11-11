@@ -1,6 +1,6 @@
 require 'my_bitcasa/error'
 
 module MyBitcasa
-  class ResponseError < Error
+  class ResponseFormatError < Error
   end
 end

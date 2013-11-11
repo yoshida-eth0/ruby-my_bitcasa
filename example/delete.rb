@@ -7,9 +7,11 @@ require 'pp'
 setting = YAML.load_file(File.expand_path("setting.yml", File.dirname(__FILE__)))
 MyBitcasa.establish_connection(setting.symbolize_keys)
 
-puts "====="
-puts "Profile"
-puts "====="
+drive = MyBitcasa::Ls.new("/").select{|item| item.drive?}.first
 
-profile = MyBitcasa::Profile.new
-pp profile
+drive.each do |item|
+  if item.name.match(/^my_bitcasa_example_(upload( \(\d+\))?\.rb|mkdir( \(\d+\))?)$/)
+    puts "delete: #{item.name}"
+    item.delete
+  end
+end

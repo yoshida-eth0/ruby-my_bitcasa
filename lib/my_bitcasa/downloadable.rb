@@ -7,14 +7,6 @@ module MyBitcasa
   module Downloadable
     extend ActiveSupport::Concern
 
-    def binary
-      res = connection.get do |req|
-        req.url _download_path
-        req.params = _download_params
-      end
-      res.body
-    end
-
     def stream(&block)
       # path
       uri = _download_path

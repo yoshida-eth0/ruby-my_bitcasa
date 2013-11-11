@@ -5,7 +5,7 @@ require 'yaml'
 require 'pp'
 
 setting = YAML.load_file(File.expand_path("setting.yml", File.dirname(__FILE__)))
-MyBitcasa.establish_connection(setting["user"], setting["password"])
+MyBitcasa.establish_connection(setting.symbolize_keys)
 
 puts "====="
 puts "file list"
