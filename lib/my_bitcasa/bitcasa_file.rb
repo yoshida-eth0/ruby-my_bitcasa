@@ -3,6 +3,7 @@ require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/downloadable'
 require 'my_bitcasa/thumbnail'
 require 'my_bitcasa/legacy_thumbnail'
+require 'my_bitcasa/rename'
 require 'my_bitcasa/delete'
 
 module MyBitcasa
@@ -37,6 +38,15 @@ module MyBitcasa
 
     def legacy_thumbnail(size=:small)
       LegacyThumbnail.new(self, size)
+    end
+
+    def rename(to_basename)
+      to_basename = File.basename(to_basename)
+      to = File.dirname(self.path) + "/" + to_basename
+      Rename.new(self.path, to).rename
+      @item["path"] = to
+      @item["name"] = to_basename
+      self
     end
 
     def delete

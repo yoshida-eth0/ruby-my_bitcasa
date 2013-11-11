@@ -2,6 +2,7 @@ require 'my_bitcasa/bitcasa_item'
 require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/upload'
 require 'my_bitcasa/mkdir'
+require 'my_bitcasa/rename'
 require 'my_bitcasa/delete'
 
 module MyBitcasa
@@ -21,6 +22,15 @@ module MyBitcasa
     def mkdir(basename)
       path = "#{self.path}/#{basename}"
       Mkdir.new(path).mkdir
+    end
+
+    def rename(to_basename)
+      to_basename = File.basename(to_basename)
+      to = File.dirname(self.path) + "/" + to_basename
+      Rename.new(self.path, to).rename
+      @item["path"] = to
+      @item["name"] = to_basename
+      self
     end
 
     def delete

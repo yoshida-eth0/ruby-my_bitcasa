@@ -9,6 +9,7 @@ module MyBitcasa
     item_reader :origin_device_id
     item_reader :sync_type
 
+    undef_method :rename
     undef_method :delete
   end
 end

@@ -11,7 +11,9 @@ drive = MyBitcasa::Ls.new("/").select{|item| item.drive?}.first
 
 drive.each do |item|
   if item.name.match(/^my_bitcasa_example_/)
-    puts "delete: #{item.name}"
-    item.delete
+    puts "from: #{item.name}"
+    item.rename(item.name+"_rename")
+    puts "to: #{item.name}"
+    puts "-----"
   end
 end
