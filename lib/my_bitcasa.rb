@@ -6,15 +6,16 @@ require 'my_bitcasa/login_engine'
 # api
 require 'my_bitcasa/profile'
 require 'my_bitcasa/ls'
+require 'my_bitcasa/search'
 require 'my_bitcasa/download'
 require 'my_bitcasa/zip_download'
+require 'my_bitcasa/thumbnail'
+require 'my_bitcasa/legacy_thumbnail'
 require 'my_bitcasa/upload'
 require 'my_bitcasa/mkdir'
 require 'my_bitcasa/rename'
 require 'my_bitcasa/delete'
 require 'my_bitcasa/share'
-require 'my_bitcasa/thumbnail'
-require 'my_bitcasa/legacy_thumbnail'
 
 # model
 require 'my_bitcasa/item_accessor'
@@ -33,5 +34,5 @@ require 'my_bitcasa/response_format_error'
 require 'my_bitcasa/api_error'
 
 module MyBitcasa
-    include ConnectionPool
+  include ConnectionPool
 end

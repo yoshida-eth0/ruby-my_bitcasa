@@ -2,25 +2,23 @@ require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/bitcasa_item'
 
 module MyBitcasa
-  class Ls
+  class Search
     include ConnectionPool
     include Enumerable
 
-    attr_accessor :path
+    attr_accessor :search
     attr_accessor :top
     attr_accessor :bottom
     attr_accessor :sort_column
     attr_accessor :sort_ascending
-    attr_accessor :show_incomplete
     attr_accessor :seamless
 
-    def initialize(path, top: 0, bottom: 500, sort_column: :name, sort_ascending: true, show_incomplete: true, seamless: true)
-      @path = path.sub(/^\/?/, "/")
+    def initialize(search, top: 0, bottom: 500, sort_column: :name, sort_ascending: true, seamless: true)
+      @search = search
       @top = top
       @bottom = bottom
       @sort_column = sort_column
       @sort_ascending = sort_ascending
-      @show_incomplete = show_incomplete
       @seamless = seamless
     end
 
@@ -29,13 +27,13 @@ module MyBitcasa
 
       begin
         res = connection.get {|req|
-          req.url "/directory#{@path}"
+          req.url "/list/everything"
           req.params = {
+            search: @search,
             top: top,
             bottom: @bottom,
             sort_column: @sort_column,
             sort_ascending: @sort_ascending,
-            "show-incomplete" => @show_incomplete,
           }
         }
 
