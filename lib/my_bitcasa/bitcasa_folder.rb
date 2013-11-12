@@ -1,5 +1,5 @@
 require 'my_bitcasa/bitcasa_item'
-require 'my_bitcasa/connection_pool'
+require 'my_bitcasa/directory'
 require 'my_bitcasa/upload'
 require 'my_bitcasa/mkdir'
 require 'my_bitcasa/rename'
@@ -8,11 +8,10 @@ require 'my_bitcasa/share'
 
 module MyBitcasa
   class BitcasaFolder < BitcasaItem
-    include ConnectionPool
     include Enumerable
 
     def each(&block)
-      Ls.new(self.path).each(&block)
+      Directory.new(self.path).each(&block)
     end
 
     def upload(src_path, content_type: nil, filename: nil)

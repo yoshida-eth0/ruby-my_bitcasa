@@ -2,12 +2,12 @@ require 'my_bitcasa/bitcasa_base'
 
 module MyBitcasa
   class BitcasaItem < BitcasaBase
-    item_reader :category
-    item_reader :name
-    item_reader :mirrored?
-    item_reader :mtime
-    item_reader :path
-    item_reader :type
+    data_reader :category
+    data_reader :name
+    data_reader :mirrored?
+    data_reader :mtime
+    data_reader :path
+    data_reader :type
 
     def drive?
       folder? && !!self.mount_point

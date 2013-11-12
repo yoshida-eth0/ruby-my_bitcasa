@@ -7,7 +7,7 @@ require 'pp'
 setting = YAML.load_file(File.expand_path("setting.yml", File.dirname(__FILE__)))
 MyBitcasa.establish_connection(setting.symbolize_keys)
 
-drive = MyBitcasa::Ls.new("/").select{|item| item.drive?}.first
+drive = MyBitcasa::Directory.new("/").select{|item| item.drive?}.first
 
 puts "src: #{__FILE__}"
 puts "dest: #{drive.path}"

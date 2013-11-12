@@ -1,5 +1,4 @@
 require 'my_bitcasa/bitcasa_item'
-require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/downloadable'
 require 'my_bitcasa/thumbnail'
 require 'my_bitcasa/legacy_thumbnail'
@@ -9,18 +8,17 @@ require 'my_bitcasa/share'
 
 module MyBitcasa
   class BitcasaFile < BitcasaItem
-    include ConnectionPool
     include Downloadable
 
-    item_reader :album
-    item_reader :extension
-    item_reader :artist
-    item_reader :duplicates
-    item_reader :manifest_name
-    item_reader :mime
-    item_reader :id
-    item_reader :incomplete?
-    item_reader :size
+    data_reader :album
+    data_reader :extension
+    data_reader :artist
+    data_reader :duplicates
+    data_reader :manifest_name
+    data_reader :mime
+    data_reader :id
+    data_reader :incomplete?
+    data_reader :size
 
     downloadable_path {
       "/file/#{self.id}"

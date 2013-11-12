@@ -6,7 +6,7 @@ require 'my_bitcasa/login_engine'
 # api
 require 'my_bitcasa/profile'
 require 'my_bitcasa/ls'
-require 'my_bitcasa/search'
+require 'my_bitcasa/list'
 require 'my_bitcasa/download'
 require 'my_bitcasa/zip_download'
 require 'my_bitcasa/thumbnail'
@@ -18,7 +18,7 @@ require 'my_bitcasa/delete'
 require 'my_bitcasa/share'
 
 # model
-require 'my_bitcasa/item_accessor'
+require 'my_bitcasa/data_accessor'
 require 'my_bitcasa/bitcasa_base'
 require 'my_bitcasa/bitcasa_item'
 require 'my_bitcasa/bitcasa_drive'

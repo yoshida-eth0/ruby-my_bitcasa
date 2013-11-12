@@ -1,11 +1,11 @@
-require 'my_bitcasa/item_accessor'
+require 'my_bitcasa/data_accessor'
 
 module MyBitcasa
   class BitcasaBase
-    extend ItemAccessor
+    extend DataAccessor
 
-    def initialize(item)
-      @item = item
+    def initialize(data)
+      @data = data
     end
   end
 end

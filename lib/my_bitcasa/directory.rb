@@ -2,7 +2,7 @@ require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/bitcasa_item'
 
 module MyBitcasa
-  class Ls
+  class Directory
     include ConnectionPool
     include Enumerable
 

@@ -2,10 +2,21 @@ require 'my_bitcasa/connection_pool'
 require 'my_bitcasa/bitcasa_item'
 
 module MyBitcasa
-  class Search
+  class List
     include ConnectionPool
     include Enumerable
 
+    EVERYTHING    = "everything".freeze
+    PHOTOS        = "photos".freeze
+    MUSIC         = "music".freeze
+    MUSIC_ALBUMS  = "music/albums".freeze
+    MUSIC_ARTISTS = "music/artists".freeze
+    VIDEOS        = "videos".freeze
+    DOCUMENTS     = "documents".freeze
+
+    TYPES = Set[EVERYTHING, PHOTOS, MUSIC, MUSIC_ALBUMS, MUSIC_ARTISTS, VIDEOS, DOCUMENTS].freeze
+
+    attr_accessor :type
     attr_accessor :search
     attr_accessor :top
     attr_accessor :bottom
@@ -13,7 +24,10 @@ module MyBitcasa
     attr_accessor :sort_ascending
     attr_accessor :seamless
 
-    def initialize(search, top: 0, bottom: 500, sort_column: :name, sort_ascending: true, seamless: true)
+    def initialize(type: EVERYTHING, search: nil, top: 0, bottom: 500, sort_column: :name, sort_ascending: true, seamless: true)
+      raise "type error: #{type}" unless TYPES.include?(type)
+
+      @type = type
       @search = search
       @top = top
       @bottom = bottom
@@ -27,7 +41,7 @@ module MyBitcasa
 
       begin
         res = connection.get {|req|
-          req.url "/list/everything"
+          req.url "/list/#{@type}"
           req.params = {
             search: @search,
             top: top,

@@ -8,7 +8,7 @@ setting = YAML.load_file(File.expand_path("setting.yml", File.dirname(__FILE__))
 MyBitcasa.establish_connection(setting.symbolize_keys)
 
 def recursive(path, remainder, &block)
-  MyBitcasa::Ls.new(path).each do |item|
+  MyBitcasa::Directory.new(path).each do |item|
     if item.folder?
       recursive(item.path, remainder-1, &block) if 0<remainder
     else

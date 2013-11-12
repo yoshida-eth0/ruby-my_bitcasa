@@ -11,17 +11,17 @@ puts "====="
 puts "file list"
 puts "====="
 
-def recursive_ls(path, remainder)
-  MyBitcasa::Ls.new(path).each do |item|
+def recursive_directory(path, remainder)
+  MyBitcasa::Directory.new(path).each do |item|
     puts "category: #{item.category}"
     puts "name: #{item.name}"
     puts "path: #{item.path}"
     puts "-----"
 
     if item.folder? && 0<remainder
-      recursive_ls(item.path, remainder-1)
+      recursive_directory(item.path, remainder-1)
     end
   end
 end
 
-recursive_ls("/", 1)
+recursive_directory("/", 1)
