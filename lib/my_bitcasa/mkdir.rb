@@ -12,7 +12,7 @@ module MyBitcasa
 
     def mkdir
       res = connection.post do |req|
-        req.url "/directory#{@path}"
+        req.url Connection.uri_encode("/directory#{@path}")
       end
 
       case res.body["status"]

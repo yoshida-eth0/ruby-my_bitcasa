@@ -29,7 +29,7 @@ module MyBitcasa
 
       begin
         res = connection.get {|req|
-          req.url "/directory#{@path}"
+          req.url Connection.uri_encode("/directory#{@path}")
           req.params = {
             top: top,
             bottom: @bottom,

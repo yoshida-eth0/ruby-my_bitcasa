@@ -6,6 +6,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'my_bitcasa/response_middleware'
 require 'active_support/core_ext'
+require 'uri'
 
 module MyBitcasa
   class Connection < Faraday::Connection
@@ -89,6 +90,12 @@ module MyBitcasa
       @cookie = res.headers["set-cookie"] || @cookie
       if @cookie
         @cookie.sub!(/; Domain=(\.?my)?.bitcasa.com; Path=\//, "")
+      end
+    end
+
+    class << self
+      def uri_encode(path)
+        URI.encode(path).gsub("[", "%5B").gsub("]", "%5D")
       end
     end
   end
